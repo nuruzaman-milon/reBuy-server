@@ -1,16 +1,19 @@
 [
     {
-        "title": "Realme Phone",
+        "_id": "63802f8259c9ffedc9999fde",
+        "title": "Realme",
         "img": "https://www.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/11/16/Photos/Home%20Page/GO%20(77)-kjmB--621x414@LiveMint.png",
         "description": "realme is an emerging mobile phone brand which is committed to offering mobile phones with powerful performance, stylish design and sincere services."
     },
     {
-        "title": "Oppo Phone",
+        "_id": "63802f8259c9ffedc9999fdf",
+        "title": "Oppo",
         "img": "https://seeklogo.com/images/O/oppo-logo-BECA4F3EAB-seeklogo.com.png",
         "description": "OPPO, a mobile phone brand enjoyed by young people around the world, specializes in designing innovative mobile photography technology."
     },
     {
-        "title": "Xiaomi Phone",
+        "_id": "63802f8259c9ffedc9999fe0",
+        "title": "Xiaomi",
         "img": "https://fdn.gsmarena.com/imgroot/news/21/03/xiaomi-new-logo/-1200/gsmarena_004.jpg",
         "description": "Xiaomi is an Internet company with smartphones and smart hardware connected by an IoT platform at its core."
     }
