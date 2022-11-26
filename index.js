@@ -19,6 +19,8 @@ async function run(){
     try {
         const categoryCollection = client.db('ReBuy').collection('categories');
         const productCollection = client.db('ReBuy').collection('products');
+        const userCollection = client.db('ReBuy').collection('users');
+        const bookCollection = client.db('ReBuy').collection('books');
 
         //get all category data
         app.get('/category',async(req,res) =>{
@@ -33,6 +35,20 @@ async function run(){
           const query = {category_id:id}
           const products = await productCollection.find(query).toArray();
           res.send(products);
+        });
+
+        //post book data to database
+        app.post('/product/books',async(req,res) =>{
+          const book = req.body;
+          const result = await bookCollection.insertOne(book);
+          res.send(result);
+        });
+
+        //post user data to database
+        app.post('/users',async(req,res) =>{
+          const user = req.body;
+          const result = await userCollection.insertOne(user);
+          res.send(result);
         });
 
     } 
