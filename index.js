@@ -37,18 +37,34 @@ async function run(){
           res.send(products);
         });
 
-        //post book data to database
-        app.post('/product/books',async(req,res) =>{
-          const book = req.body;
-          const result = await bookCollection.insertOne(book);
-          res.send(result);
-        });
-
         //post user data to database
         app.post('/users',async(req,res) =>{
           const user = req.body;
           const result = await userCollection.insertOne(user);
           res.send(result);
+        });
+
+        //get user using specific email address
+        // app.get('/users',async(req,res) =>{
+        //   const email= req.query.email;
+        //   const query = {email:email}
+        //   const users = await userCollection.findOne(query);
+        //   res.send(users);
+        // });
+
+         //post book data to database
+         app.post('/bookings',async(req,res) =>{
+          const book = req.body;
+          const result = await bookCollection.insertOne(book);
+          res.send(result);
+        });
+
+        //get bookings using specific email address
+        app.get('/bookings',async(req,res) =>{
+          const email= req.query.email;
+          const query = {email:email}
+          const bookings = await bookCollection.find(query).toArray();
+          res.send(bookings);
         });
 
     } 
