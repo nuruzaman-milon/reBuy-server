@@ -66,6 +66,21 @@ async function run(){
           res.send(products);
         });
 
+         //post products to database
+         app.post('/products',async(req,res) =>{
+          const product = req.body;
+          const result = await productCollection.insertOne(product);
+          res.send(result);
+        });
+
+        // get seller product using auth email
+        app.get('/products',async(req,res) =>{
+          const email = req.query.email;
+          const query = {sellerEmail:email}
+          const product = await productCollection.find(query).toArray();
+          res.send(product);
+        });
+
         //post user data to database
         app.post('/users',async(req,res) =>{
           const user = req.body;
@@ -73,13 +88,7 @@ async function run(){
           res.send(result);
         });
 
-        //get user data using auth email
-        // app.get('/users',async(req,res) =>{
-        //   const email = req.query.email;
-        //   const query = {email:email}
-        //   const user = await userCollection.findOne(query);
-        //   res.send(user);
-        // });
+        
 
         //check isAdmin
         app.get('/users/admin/:email',async(req,res) =>{
