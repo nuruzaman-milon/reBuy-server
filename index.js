@@ -3,7 +3,7 @@ const app = express()
 const port = process.env.PORT || 5000
 const cors = require('cors')
 require ('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
 
 //middleware
@@ -37,6 +37,7 @@ async function run(){
         const productCollection = client.db('ReBuy').collection('products');
         const userCollection = client.db('ReBuy').collection('users');
         const bookCollection = client.db('ReBuy').collection('books');
+        const advertiseCollection = client.db('ReBuy').collection('advertises');
 
 
         //JWT server
@@ -81,14 +82,20 @@ async function run(){
           res.send(product);
         });
 
+        //delete seller product using id
+        app.delete('/products/:id',async(req,res) =>{
+          const id= req.params.id;
+          const query = {_id:ObjectId(id)}
+          const result = await productCollection.deleteOne(query);
+          res.send(result);
+        });
+
         //post user data to database
         app.post('/users',async(req,res) =>{
           const user = req.body;
           const result = await userCollection.insertOne(user);
           res.send(result);
         });
-
-        
 
         //check isAdmin
         app.get('/users/admin/:email',async(req,res) =>{
@@ -114,6 +121,27 @@ async function run(){
           res.send({isBuyer:user?.role === 'buyer'});
         });
 
+        //get all seller
+        app.get('/users/seller',async(req,res) =>{
+          const query = {role:'seller'};
+          const users = await userCollection.find(query).toArray();
+          res.send(users);
+        });
+
+        //get all buyer
+        app.get('/users/buyer',async(req,res) =>{
+          const query = {role:'buyer'};
+          const users = await userCollection.find(query).toArray();
+          res.send(users);
+        });
+
+        //delete seller product using id
+        app.delete('/users/:id',async(req,res) =>{
+          const id= req.params.id;
+          const query = {_id:ObjectId(id)}
+          const result = await userCollection.deleteOne(query);
+          res.send(result);
+        });
 
          //post book data to database
          app.post('/bookings',async(req,res) =>{
@@ -132,6 +160,20 @@ async function run(){
           const query = {email:email}
           const bookings = await bookCollection.find(query).toArray();
           res.send(bookings);
+        });
+
+        //post advertises products to database
+        app.post('/advertises',async(req,res) =>{
+          const advertise = req.body;
+          const result = await advertiseCollection.insertOne(advertise);
+          res.send(result);
+        });
+
+        //get all advertises item
+          app.get('/advertises',async(req,res) =>{
+          const query = {}
+          const advertises = await advertiseCollection.find(query).toArray();
+          res.send(advertises);
         });
 
     } 
